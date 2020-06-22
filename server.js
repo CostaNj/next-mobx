@@ -42,6 +42,7 @@ app.prepare()
 
         server.get('/api/v1/findresume/:id', (req, res) => {
             let resumeId = req.params.id
+            console.log(resumeId)
             Resume.findById(resumeId, (err, resume) => {
                 if(err) {
                     res.status(422).send(err)
