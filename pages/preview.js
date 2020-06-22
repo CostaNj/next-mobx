@@ -4,11 +4,11 @@ import { Button } from 'reactstrap'
 
 export default () => {
 
-    const handlePreviewClick = useCallback(() => {
-        Router.push('/preview')
+    const handleBackClick = useCallback(() => {
+        Router.push('/')
     }, [])
 
     return (
-        <Button onClick={handlePreviewClick} color="primary">Preview</Button>
+        <Button onClick={handleBackClick}>Back</Button>
     )
 }
