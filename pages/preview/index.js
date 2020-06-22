@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import cn from 'classnames'
+import axios from 'axios'
 import Router from 'next/router'
 import { inject, observer } from 'mobx-react'
 
@@ -9,6 +10,20 @@ const Preview = ({ store }) => {
 
     const handleBackClick = useCallback(() => {
         Router.push('/')
+    }, [])
+
+    const handleSaveClick = useCallback(() => {
+        axios({
+            method: 'POST',
+            url: '/api/v1/addresume',
+            data: JSON.stringify(store),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                console.log(response)
+            })
     }, [])
 
     return (
@@ -27,7 +42,7 @@ const Preview = ({ store }) => {
             <button onClick={handleBackClick} className={cn(styles.btn, styles.btnSecondary)}>
                 Редактировать
             </button>
-            <button onClick={handleBackClick} className={cn(styles.btn, styles.btnPrimary)}>
+            <button onClick={handleSaveClick} className={cn(styles.btn, styles.btnPrimary)}>
                 Сохранить
             </button>
         </div>
