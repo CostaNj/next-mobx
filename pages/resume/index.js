@@ -6,18 +6,15 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig()
 
 import styles from 'bootstrap/dist/css/bootstrap.min.css'
+import { ResumeView } from '../../components/resume-view'
 
-const Resume = (props) => _.isNil(props.resume) || _.isEmpty(props.resume) ?
+const Resume = ({ resume }) => _.isNil(resume) || _.isEmpty(resume) ?
 
     <div className={cn(styles.alert, styles.alertDanger)}>
         Резюме с таким id не найдено!
     </div>
     :
-    <div>
-        <div>Имя: {props.resume.name}</div>
-        <div>Фамилия: {props.resume.lastname}</div>
-        <div>Возраст: {props.resume.age}</div>
-    </div>
+    <ResumeView resume={resume}/>
 
 Resume.getInitialProps = async ({ query }) => {
     let resume

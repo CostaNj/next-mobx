@@ -1,0 +1,9 @@
+.btn-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-offset {
+    margin-right: 20px;
+}

@@ -3,7 +3,9 @@ import Router from 'next/router'
 import { observer, inject } from 'mobx-react'
 import cn from 'classnames'
 import { Formik } from 'formik'
+
 import styles from 'bootstrap/dist/css/bootstrap.min.css'
+import myStyles from './style.css'
 
 const Home = ({ store }) => {
 
@@ -42,7 +44,7 @@ const Home = ({ store }) => {
         age: store.age
     }
     return (
-        <div className={styles.container}>
+        <>
             <Formik
                 initialValues={formikInitialValues}
                 validate={handleRules}
@@ -101,18 +103,19 @@ const Home = ({ store }) => {
                                 { errors.age && touched.age && <div style={{color: 'red'}}>{ errors.age }</div>}
                             </div>
                             <br/>
-
-                            <button
-                                className={cn(styles.btn, styles.btnPrimary)}
-                                type="submit"
-                            >
-                                Превью
-                            </button>
+                            <div className={myStyles.btnContainer}>
+                                <button
+                                    className={cn(styles.btn, styles.btnPrimary, myStyles.btnOffset)}
+                                    type="submit"
+                                >
+                                    Превью
+                                </button>
+                            </div>
                         </form>
                     )
                 }
             </Formik>
-        </div>
+        </>
     )
 }
 

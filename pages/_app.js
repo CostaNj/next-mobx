@@ -3,9 +3,13 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import { store } from '../store'
 
+import { Layout } from '../components'
+
 const MyApp = ({ Component, pageProps }) =>  (
     <Provider store={store}>
-        <Component {...pageProps} />
+        <Layout>
+            <Component {...pageProps} />
+        </Layout>
     </Provider>
 );
 
