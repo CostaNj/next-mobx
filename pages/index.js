@@ -1,39 +1,50 @@
 import React, { useCallback } from 'react'
 import Router from 'next/router'
+import { observer, inject } from 'mobx-react'
 import cn from 'classnames'
 import { Formik } from 'formik'
 import styles from 'bootstrap/dist/css/bootstrap.min.css'
 
-export default () => {
+const Home = ({ store }) => {
 
-    const handleSubmit = useCallback((values, actions) => {
-        console.log(values, actions)
-        // Router.push('/preview')
+    const handleSubmit = useCallback((values) => {
+        store.updateStore(values)
+        Router.push('/preview')
     }, [])
 
     const handleRules = useCallback((values) => {
         let errors = {}
 
         if(!values.name) {
-            errors.name = 'Required'
+            errors.name = 'Обязательное поле'
+        } else if (!/^[a-zA-Zа-яА-я]+$/.test(values.name)) {
+            errors.name = 'Необходимо ввести буквы'
         }
 
         if(!values.lastname) {
-            errors.lastname = 'Required'
+            errors.lastname = 'Обязательное поле'
+        } else if (!/^[a-zA-Zа-яА-Я]+$/.test(values.lastname)) {
+            errors.lastname = 'Необходимо ввести буквы'
         }
 
         if(!values.age) {
-            errors.age = 'Required'
+            errors.age = 'Обязательное поле'
+        } else if (!/^[\d]+$/.test(values.age)) {
+            errors.age = 'Необходимо ввести число'
         }
 
         return errors
     }, [])
 
-
+    const formikInitialValues = {
+        name: store.name,
+        lastname: store.lastname,
+        age: store.age
+    }
     return (
         <div className={styles.container}>
             <Formik
-                initialValues={{ name:'', lastname:'', age:''}}
+                initialValues={formikInitialValues}
                 validate={handleRules}
                 onSubmit={handleSubmit}
             >
@@ -95,7 +106,7 @@ export default () => {
                                 className={cn(styles.btn, styles.btnPrimary)}
                                 type="submit"
                             >
-                                Preview
+                                Превью
                             </button>
                         </form>
                     )
@@ -104,3 +115,5 @@ export default () => {
         </div>
     )
 }
+
+export default inject('store')(observer(Home))

@@ -1,15 +1,20 @@
+import App from 'next/app'
 import React from 'react'
-import NextApp from 'next/app'
+import { Provider } from 'mobx-react'
+import { store } from '../store'
 
-const App = ({ Component, pageProps }) => {
-    return <Component {...pageProps} />
+const MyApp = ({ Component, pageProps }) =>  (
+    <Provider store={store}>
+        <Component {...pageProps} />
+    </Provider>
+);
+
+MyApp.getInitialProps = async (appContext) => {
+    const appProps = await App.getInitialProps(appContext)
+
+    return {
+        ...appProps
+    }
 }
 
-
-App.getInitialProps = async (appContext) => {
-  const appProps = await NextApp.getInitialProps(appContext);
-
-  return { ...appProps }
-}
-
-export default App
+export default MyApp
