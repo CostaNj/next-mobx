@@ -1,6 +1,5 @@
 import React from 'react'
 import NextApp from 'next/app'
-import 'bootstrap/dist/css/bootstrap.css'
 
 const App = ({ Component, pageProps }) => {
     return <Component {...pageProps} />
